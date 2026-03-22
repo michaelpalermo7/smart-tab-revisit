@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Echo",
+  "version": "1.0",
+
+  "action": {
+    "default_popup": "popup.html"
+  },
+
+  "permissions": ["storage", "activeTab", "scripting"],
+
+  "host_permissions": ["*://www.google.com/*"]
+}

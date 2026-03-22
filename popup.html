@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <h3>Tab Echo</h3>
+    <div id="createPassPrompt">
+      <label>Create Password:</label>
+      <input id="createPass" />
+      <p>Warning: If you forget this password, data cannot be recovered</p>
+      <button id="unlockBtn">Create Password</button>
+    </div>
+
+    <div id="enterPassPrompt">
+      <label>Enter Password:</label>
+      <input id="enterPass" />
+      <button>Unlock</button>
+    </div>
+
+    <div id="savePrompts">
+      <label id="reasonLabel"> Reason: </label>
+      <input id="reasonField" />
+
+      <div>
+        <button id="saveBtn">Save this page</button>
+      </div>
+    </div>
+    <script src="js/saveContent.js"></script>
+    <script src="js/showSavePrompt.js"></script>
+    <script src="js/setPassword.js"></script>
+  </body>
+</html>

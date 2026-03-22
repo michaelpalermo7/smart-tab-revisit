@@ -1,0 +1,10 @@
+//basic permissions
+storage
+activeTab
+contextMenus (allows right click so they can save from there too, easier)
+
+//host permissions
+"*://www.google.com/*"
+
+//to get local storage elements use
+chrome.storage.local.get(null).then(console.log);
