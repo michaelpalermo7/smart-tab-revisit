@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btn.addEventListener("click", async () => {
     try {
       const password = document.getElementById("enterPass").value;
+      if (!password) return;
       //retrieve salt+iv+vault
       const result = await chrome.storage.local.get(["vault", "salt", "iv"]);
 
@@ -27,15 +28,23 @@ document.addEventListener("DOMContentLoaded", () => {
       let decrypted;
 
       decrypted = await decrypt(vault, generatedKey, iv);
+      const exportedKey = await crypto.subtle.exportKey("raw", generatedKey);
+      //store key in session to maintain user access (no pass needed on reopen)
+      await chrome.storage.session.set({
+        entries: decrypted,
+        exportedKey: Array.from(new Uint8Array(exportedKey)),
+      });
       setSessionKey(generatedKey);
       setSessionEntries(decrypted);
       console.log("Decryption successful");
+
       renderList();
       document.getElementById("mascot").style.display = "none";
       document.getElementById("enterPassPrompt").style.display = "none";
-      document.getElementById("saveSection").style.display = "block";
+      document.getElementById("saveSection").style.display = "flex";
     } catch (e) {
       console.error("Password invalid.");
+      document.getElementById("wrong-pass").style.display = "block";
     }
   });
 });

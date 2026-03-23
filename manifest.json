@@ -7,14 +7,24 @@
     "default_popup": "popup.html"
   },
 
+  "icons": {
+    "16": "assets/mascot.png",
+    "48": "assets/mascot.png",
+    "128": "assets/mascot.png"
+  },
+
   "permissions": ["storage", "activeTab", "scripting"],
 
-  "host_permissions": ["*://www.google.com/*"],
+  "host_permissions": ["*://www.google.com/*", "<all_urls>"],
   "content_scripts": [
     {
-      "matches": ["*://www.google.com/*"],
-      "js": ["js/search/detectSearch.js"],
-      "run_at": "document_end"
+      "matches": ["https://www.google.com/search*"],
+      "js": ["lib/compromise.min.js", "js/search/detectSearch.js"],
+      "run_at": "document_idle"
     }
-  ]
+  ],
+
+  "background": {
+    "service_worker": "js/background.js"
+  }
 }

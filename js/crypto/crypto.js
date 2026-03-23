@@ -23,7 +23,10 @@ export async function deriveKeyFromPassword(password, salt) {
       name: "AES-GCM",
       length: 256,
     },
-    false,
+    //key can be exported to raw bytes, needs to be the case
+    //to persist key accross popup close/reopen in browser session
+    //the key is only ever stored in chrome.storage.session, never written to disk
+    true,
     ["encrypt", "decrypt"]
   );
 

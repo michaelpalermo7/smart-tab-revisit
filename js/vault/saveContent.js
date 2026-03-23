@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function getCurrentTabUrl() {
     const [tab] = await chrome.tabs.query({
       active: true,
-      currentWindow: true,
+      lastFocusedWindow: true,
     });
 
     if (!tab) {
@@ -57,11 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
       setSessionEntries(currentEntries);
       //encrypt + save
       const { ciphertext, iv: newIv } = await encryptData(currentEntries, key);
-      chrome.storage.local.set({
+      await chrome.storage.local.set({
         vault: ciphertext,
         salt: result.salt,
         iv: Array.from(newIv),
       });
+      await chrome.storage.session.set({ entries: currentEntries });
+
       renderList();
     } catch (err) {
       console.error(err);
