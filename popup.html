@@ -4,19 +4,32 @@
     <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
-    <h3>Tab Echo</h3>
+    <h3 id="title">Tab Echo</h3>
     <div id="createPassPrompt">
-      <label>Create Password:</label> <input id="createPass" />
+      <label id="createPassLabel" for="createPass">Create Password:</label>
+      <input id="createPass" type="password" />
       <p>Warning: If you forget this password, data cannot be recovered</p>
       <button id="createPassBtn">Create Password</button>
     </div>
     <div id="enterPassPrompt">
-      <label>Enter Password:</label> <input id="enterPass" />
+      <label id="enterPassLabel" for="enterPass">Enter Password:</label>
+      <input id="enterPass" type="password" />
       <button id="unlockBtn">Unlock</button>
     </div>
-    <div id="savePrompts">
-      <label id="reasonLabel"> Reason: </label> <input id="reasonField" />
-      <div><button id="saveBtn">Save this page</button></div>
+    <div id="saveSection">
+      <div id="saveContainer">
+        <div id="saveTop">
+          <label id="reasonLabel" for="reasonField"> Reason: </label>
+          <input id="reasonField" />
+          <div><button id="saveBtn">Save this page</button></div>
+        </div>
+
+        <div id="saveBottom">
+          <h3 id="title">Saved Items</h3>
+
+          <ul id="vaultList"></ul>
+        </div>
+      </div>
     </div>
     <script type="module" src="js/createPassword.js"></script>
     <script type="module" src="js/verifyPassword.js"></script>

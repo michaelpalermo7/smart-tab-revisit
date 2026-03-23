@@ -1,5 +1,7 @@
 import { deriveKeyFromPassword } from "./crypto.js";
 import { decrypt } from "./decrypt.js";
+import { renderList } from "./renderVault.js";
+import { setSessionKey, setSessionEntries } from "./session.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("unlockBtn");
@@ -29,9 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       decrypted = await decrypt(vault, generatedKey, iv);
+      setSessionKey(generatedKey);
+      setSessionEntries(decrypted);
       console.log("Decryption successful");
+      renderList();
       document.getElementById("enterPassPrompt").style.display = "none";
-      document.getElementById("savePrompts").style.display = "block";
+      document.getElementById("saveSection").style.display = "block";
     } catch (e) {
       console.error("Password invalid.");
     }

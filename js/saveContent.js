@@ -1,3 +1,8 @@
+import { encryptData } from "./encryptData.js";
+import { getSessionKey, setSessionEntries } from "./session.js";
+import { decrypt } from "./decrypt.js";
+import { renderList } from "./renderVault.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("saveBtn");
 
@@ -28,15 +33,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const reason = document.getElementById("reasonField").value;
       console.log(tabUrl);
       console.log(reason);
-      saveCurrentTabUrl(tabUrl, reason);
+      const key = getSessionKey();
+      if (!key) {
+        console.error("No active session");
+        return;
+      }
+
+      //get current vault, decrypt it
+      const result = await chrome.storage.local.get(["vault", "salt", "iv"]);
+      const iv = new Uint8Array(result.iv);
+      const currentEntries = await decrypt(result.vault, key, iv);
+
+      //append new entry
+      currentEntries.push({ url: tabUrl, reason: reason });
+      setSessionEntries(currentEntries);
+      //encrypt and save
+      const { ciphertext, iv: newIv } = await encryptData(currentEntries, key);
+      chrome.storage.local.set({
+        vault: ciphertext,
+        salt: result.salt,
+        iv: Array.from(newIv),
+      });
+      renderList();
     } catch (err) {
       console.error(err);
     }
   });
-
-  function saveCurrentTabUrl(url, reason) {
-    chrome.storage.local.set({ url: url, reason: reason }, function () {
-      console.log(`URL ${url} and reason ${reason} saved in local storage`);
-    });
-  }
 });

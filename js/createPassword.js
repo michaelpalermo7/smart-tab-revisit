@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const { ciphertext, iv } = await encryptData(vault, generatedKey);
 
     //store encrypted data and salt in local storage
-    chrome.storage.local.set(
+    await chrome.storage.local.set(
       {
         vault: ciphertext,
         salt: Array.from(salt),
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (generatedKey) {
       document.getElementById("createPassPrompt").style.display = "none";
 
-      document.getElementById("enterPassPrompt").style.display = "block";
+      document.getElementById("enterPassPrompt").style.display = "flex";
     }
   });
 });

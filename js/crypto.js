@@ -32,7 +32,7 @@ export async function deriveKeyFromPassword(password, salt) {
 
 export function generateSalt(length = 16) {
   const salt = new Uint8Array(length);
-  window.crypto.getRandomValues(salt);
+  crypto.getRandomValues(salt);
 
   return salt;
 }

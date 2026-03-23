@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (result.vault) {
     document.getElementById("createPassPrompt").style.display = "none";
-    document.getElementById("enterPassPrompt").style.display = "block";
-    document.getElementById("savePrompts").style.display = "none";
+    document.getElementById("enterPassPrompt").style.display = "flex";
+    document.getElementById("saveSection").style.display = "none";
   } else {
     document.getElementById("createPassPrompt").style.display = "block";
     document.getElementById("enterPassPrompt").style.display = "none";
-    document.getElementById("savePrompts").style.display = "none";
+    document.getElementById("saveSection").style.display = "none";
   }
 });
