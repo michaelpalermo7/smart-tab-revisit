@@ -1,6 +1,6 @@
-import { encryptData } from "./encryptData.js";
+import { encryptData } from "../crypto/encryptData.js";
 import { getSessionKey, setSessionEntries } from "./session.js";
-import { decrypt } from "./decrypt.js";
+import { decrypt } from "../crypto/decrypt.js";
 import { renderList } from "./renderVault.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -44,10 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const iv = new Uint8Array(result.iv);
       const currentEntries = await decrypt(result.vault, key, iv);
 
+      //check for duplicates
+      for (let i = 0; i < currentEntries.length; i++) {
+        if (tabUrl === currentEntries[i].url) {
+          console.log("Tab already saved");
+
+          return;
+        }
+      }
       //append new entry
       currentEntries.push({ url: tabUrl, reason: reason });
       setSessionEntries(currentEntries);
-      //encrypt and save
+      //encrypt + save
       const { ciphertext, iv: newIv } = await encryptData(currentEntries, key);
       chrome.storage.local.set({
         vault: ciphertext,

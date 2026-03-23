@@ -2,38 +2,55 @@
 <html>
   <head>
     <link rel="stylesheet" href="css/index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Outfit:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h3 id="title">Tab Echo</h3>
-    <div id="createPassPrompt">
-      <label id="createPassLabel" for="createPass">Create Password:</label>
-      <input id="createPass" type="password" />
-      <p>Warning: If you forget this password, data cannot be recovered</p>
-      <button id="createPassBtn">Create Password</button>
-    </div>
-    <div id="enterPassPrompt">
-      <label id="enterPassLabel" for="enterPass">Enter Password:</label>
-      <input id="enterPass" type="password" />
-      <button id="unlockBtn">Unlock</button>
-    </div>
-    <div id="saveSection">
-      <div id="saveContainer">
+    <div id="top-bar"><h3 id="title">TAB ECHO</h3></div>
+    <div id="non-bar">
+      <img src="./assets/mascot.png" alt="Mascot" id="mascot" width="120" />
+      <div id="createPassPrompt">
+        <label class="field-label" for="createPass">Create Password</label>
+        <input
+          id="createPass"
+          type="password"
+          placeholder="Enter a strong password"
+        />
+        <p
+          class="warning-secondary"
+          id="data-loss-warning"
+          style="display: block"
+        >
+          If you forget this password, data cannot be recovered
+        </p>
+        <p class="warning-primary" id="invalid-pass" style="display: none">
+          Password must be minimum 8 characters long and contain a number
+        </p>
+        <button class="btn-primary" id="createPassBtn">GET STARTED</button>
+      </div>
+      <div id="enterPassPrompt">
+        <label class="field-label" for="enterPass">Enter Password</label>
+        <input id="enterPass" type="password" placeholder="Your password" />
+
+        <button class="btn-primary" id="unlockBtn">UNLOCK</button>
+      </div>
+      <div id="saveSection">
         <div id="saveTop">
-          <label id="reasonLabel" for="reasonField"> Reason: </label>
-          <input id="reasonField" />
-          <div><button id="saveBtn">Save this page</button></div>
+          <label class="field-label" for="reasonField">Reason</label>
+          <input id="reasonField" placeholder="Why are you saving this?" />
+          <button class="btn-primary" id="saveBtn">Save This Page</button>
         </div>
-
         <div id="saveBottom">
-          <h3 id="title">Saved Items</h3>
-
+          <p class="section-label">Saved Items</p>
           <ul id="vaultList"></ul>
         </div>
       </div>
     </div>
-    <script type="module" src="js/createPassword.js"></script>
-    <script type="module" src="js/verifyPassword.js"></script>
-    <script type="module" src="js/saveContent.js"></script>
-    <script type="module" src="js/uiState.js"></script>
+    <script type="module" src="js/ui/createPassword.js"></script>
+    <script type="module" src="js/ui/verifyPassword.js"></script>
+    <script type="module" src="js/vault/saveContent.js"></script>
+    <script type="module" src="js/ui/uiState.js"></script>
   </body>
 </html>

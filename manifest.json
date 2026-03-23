@@ -9,5 +9,12 @@
 
   "permissions": ["storage", "activeTab", "scripting"],
 
-  "host_permissions": ["*://www.google.com/*"]
+  "host_permissions": ["*://www.google.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["*://www.google.com/*"],
+      "js": ["js/search/detectSearch.js"],
+      "run_at": "document_end"
+    }
+  ]
 }
